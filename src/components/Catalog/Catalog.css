@@ -1,0 +1,45 @@
+.catalog-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.movies-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.add-funds-button {
+    margin-left: 20px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-funds-button:hover {
+    background-color: #45a049;
+}
+
+.transfer-button, .add-funds-button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.transfer-button:hover, .add-funds-button:hover {
+    background-color: #0056b3;
+}
+
+
