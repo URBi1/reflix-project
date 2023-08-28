@@ -1,0 +1,9 @@
+.modal-window {
+    position: fixed;
+    top: 10%;
+    left: 70%;
+    right: 10%;
+    bottom: 60% ;
+    background: rgba(50, 50, 50, 0.9);
+    color: white;
+}

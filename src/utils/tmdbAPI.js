@@ -43,3 +43,23 @@ export const fetchMovieTrailer = async (movieId) => {
         return null;
     }
 };
+
+export const fetchMovieGIF = async (movieName) => {
+    try {
+        const APIKEY =  'yfmfJcZr8Se0Nhv25E5F8ua61va7EqOl';
+        const query=movieName;
+        const url = 'https://api.giphy.com/v1/gifs/search';
+
+        const response = await fetch(`${url}?api_key=${APIKEY}&q=${query}&limit=1`);
+        const data = await response.json();
+
+        console.log(data);
+        
+        return data.data[0].images.fixed_height.url;
+        
+    } catch (error) {
+        console.error("Can't download gif data", error);
+        return null;
+    }
+};
+

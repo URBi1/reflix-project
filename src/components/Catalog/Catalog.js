@@ -5,8 +5,14 @@ import SearchBar from './SearchBar';
 import Movie from './Movie';
 import './Catalog.css';
 import { Link } from 'react-router-dom';
+import Modal from './Modal';
 
 const Catalog = (props) => {
+
+    const TIMEOUT_AUTO_CLOSE_MODAL = 2000;
+
+    const [showModal,setShowModal] = useState(false)
+    const [rentedMovieName,setRentedMovieName]= useState('')
     const [isRented, setIsRented] = useState([]);
     const [movies, setMovies] = useState([]);
     const user = props.user;
@@ -26,6 +32,21 @@ const Catalog = (props) => {
         setIsRented(user.rentedMovies.map(movie => movie.id));
         loadPopularMovies();
     }, [user]);
+
+    useEffect(()=>{
+        let timer;
+        if(showModal)
+        {
+            timer= setTimeout(()=>{
+                setShowModal(false)
+            },TIMEOUT_AUTO_CLOSE_MODAL)
+        }
+        return () => {
+            if(timer){
+                clearTimeout(timer)
+            }
+        }
+    }, [showModal])
 
     useEffect(() => {
         const timerId = setTimeout(() => {
@@ -59,10 +80,17 @@ const Catalog = (props) => {
         props.onUserUpdate(updatedUser);
         setIsRented(prevState => isRenting ? [...prevState, movie.id] : prevState.filter(id => id !== movie.id));
         loadPopularMovies();
+
+        if(isRenting&&!movieAlreadyRented&&user.budget +budgetChange>=0){
+             setShowModal(true)
+            setRentedMovieName(movie.title)
+        }
+
     };
 
     return (
         <div className="catalog-container">
+            {showModal && <Modal movieName={rentedMovieName} onClose={() => setShowModal(false)} />} 
             <p>Your balance: ${user.budget}
             <Link to="/add-funds" className="add-funds-button">Add funds</Link>
             <Link to="/money-transfer" className="transfer-button">Transfer Money</Link>
